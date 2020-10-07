@@ -293,7 +293,7 @@ class OutputFormatter {
  * JSON output helper functions
  */
 struct s_kw;
-class ResourceItem;
+struct ResourceItem;
 
 json_t* json_item(s_kw* item);
 json_t* json_item(ResourceItem* item);

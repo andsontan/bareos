@@ -40,7 +40,7 @@
 #include <functional>
 #include <memory>
 
-class ResourceItem;
+struct ResourceItem;
 class ConfigParserStateMachine;
 class ConfigurationParser;
 

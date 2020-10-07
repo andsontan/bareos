@@ -3,7 +3,7 @@
 
    Copyright (C) 2000-2010 Free Software Foundation Europe e.V.
    Copyright (C) 2011-2012 Planets Communications B.V.
-   Copyright (C) 2013-2020 Bareos GmbH & Co. KG
+   Copyright (C) 2013-2019 Bareos GmbH & Co. KG
 
    This program is Free Software; you can redistribute it and/or
    modify it under the terms of version three of the GNU Affero General Public
@@ -32,7 +32,7 @@ class dlist;
  * This is the structure that defines the record types (items) permitted within
  * each resource. It is used to define the configuration tables.
  */
-class ResourceItem {
+struct ResourceItem {
   const char* name; /* Resource name i.e. Director, ... */
   const int type;
   // union {
