@@ -432,7 +432,8 @@ static void FillBuffer(fill_mode_t mode, char* buf, uint32_t len)
     case FILL_RANDOM:
       fd = open("/dev/urandom", O_RDONLY);
       if (fd != -1) {
-        ssize_t result = read(fd, buf, len);
+        ssize_t result;
+        result = read(fd, buf, len);
         close(fd);
       } else {
         uint32_t* p = (uint32_t*)buf;

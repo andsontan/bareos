@@ -77,6 +77,7 @@ int main(int argc, char* const* argv)
   char* wrap_keyfile = NULL;
   char keydata[64];
   char wrapdata[64];
+  ssize_t result;
 
   setlocale(LC_ALL, "");
   tzset();
@@ -301,7 +302,7 @@ int main(int argc, char* const* argv)
         goto bail_out;
       }
     }
-    ssize_t result = read(kfd, wrapdata, sizeof(wrapdata));
+    result = read(kfd, wrapdata, sizeof(wrapdata));
     if (kfd > 0) { close(kfd); }
     StripTrailingJunk(wrapdata);
     Dmsg1(10, "Wrapped keydata = %s\n", wrapdata);
@@ -376,7 +377,7 @@ int main(int argc, char* const* argv)
     if (kfd > 1) {
       close(kfd);
     } else {
-      ssize_t result = write(kfd, "\n", 1);
+      result = write(kfd, "\n", 1);
     }
     free(passphrase);
     goto bail_out;
@@ -401,7 +402,7 @@ int main(int argc, char* const* argv)
         goto bail_out;
       }
     }
-    ssize_t result = read(kfd, keydata, sizeof(keydata));
+    result = read(kfd, keydata, sizeof(keydata));
     if (kfd > 0) { close(kfd); }
     StripTrailingJunk(keydata);
     Dmsg1(10, "Keydata = %s\n", keydata);
@@ -522,7 +523,7 @@ int main(int argc, char* const* argv)
         goto bail_out;
       }
     }
-    ssize_t result = read(kfd, keydata, sizeof(keydata));
+    result = read(kfd, keydata, sizeof(keydata));
     if (kfd > 0) { close(kfd); }
     StripTrailingJunk(keydata);
 
@@ -552,6 +553,7 @@ int main(int argc, char* const* argv)
   }
 
 bail_out:
+
   if (cache_file) { free(cache_file); }
 
   if (keyfile) { free(keyfile); }

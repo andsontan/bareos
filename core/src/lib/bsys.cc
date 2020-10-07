@@ -3,7 +3,7 @@
 
    Copyright (C) 2000-2012 Free Software Foundation Europe e.V.
    Copyright (C) 2011-2012 Planets Communications B.V.
-   Copyright (C) 2013-2013 Bareos GmbH & Co. KG
+   Copyright (C) 2013-2020 Bareos GmbH & Co. KG
 
    This program is Free Software; you can redistribute it and/or
    modify it under the terms of version three of the GNU Affero General Public
@@ -431,6 +431,7 @@ void CreatePidFile(char* dir, const char* progname, int port)
 #if !defined(HAVE_WIN32)
   int pidfd = -1;
   int len;
+  ssize_t writelen;
   int oldpid;
   char pidbuf[20];
   POOLMEM* fname = GetPoolMemory(PM_FNAME);
@@ -481,7 +482,7 @@ void CreatePidFile(char* dir, const char* progname, int port)
   if ((pidfd = open(fname, O_CREAT | O_TRUNC | O_WRONLY | O_BINARY, 0640)) >=
       0) {
     len = sprintf(pidbuf, "%d\n", (int)getpid());
-    write(pidfd, pidbuf, len);
+    writelen = write(pidfd, pidbuf, len);
     close(pidfd);
     del_pid_file_ok = true; /* we created it so we can delete it */
   } else {

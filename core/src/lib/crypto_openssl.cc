@@ -1706,7 +1706,7 @@ int OpensslInitThreads(void)
   /* Set static locking callback */
   CRYPTO_set_locking_callback(openssl_update_static_mutex);
 
-  /* Initialize dyanmic locking */
+  /* Initialize dynamic locking */
   CRYPTO_set_dynlock_create_callback(openssl_create_dynamic_mutex);
   CRYPTO_set_dynlock_lock_callback(OpensslUpdateDynamicMutex);
   CRYPTO_set_dynlock_destroy_callback(OpensslDestroyDynamicMutex);
