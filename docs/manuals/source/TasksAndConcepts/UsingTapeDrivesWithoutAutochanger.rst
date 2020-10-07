@@ -109,8 +109,8 @@ modifications of it based on two week cycles or longer.
 
 .. _advantages-1:
 
-Advantages
-~~~~~~~~~~
+Advantages of Daily Tape Rotation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  All the data is stored on a single tape, so recoveries are simple and faster.
 
@@ -118,8 +118,8 @@ Advantages
 
 .. _disadvantages-1:
 
-Disadvantages
-~~~~~~~~~~~~~
+Disadvantages of Daily Tape Rotation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  The tape must be changed every day requiring a lot of operator intervention.
 
@@ -135,10 +135,9 @@ Disadvantages
 
 .. _practical-details-1:
 
-Practical Details
-~~~~~~~~~~~~~~~~~
-
-The simplest way to "force" Bareos to use a different tape each day is to define a different Pool for each day of the the week a backup is done. In addition, you will need to specify appropriate Job and File retention periods so that Bareos will relabel and overwrite the tape each week rather than appending to it. Nic Bellamy has supplied an actual working model of this which we include here.
+Practical Details of Daily Tape Rotation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The simplest way to "force" Bareos to use a different tape each day is to define a different Pool for each day of the week a backup is done. In addition, you will need to specify appropriate Job and File retention periods so that Bareos will relabel and overwrite the tape each week rather than appending to it. Nic Bellamy has supplied an actual working model of this which we include here.
 
 What is important is to create a different Pool for each day of the week, and on the run statement in the Schedule, to specify which Pool is to be used. He has one Schedule that accomplishes this, and a second Schedule that does the same thing for the Catalog backup run each day after the main backup (Priorities were not available when this script was written). In addition, he uses a Max Start Delay of 22 hours so that if the wrong tape is premounted by the operator, the job will be
 automatically canceled, and the backup cycle will re-synchronize the next day. He has named his Friday Pool WeeklyPool because in that Pool, he wishes to have several tapes to be able to restore to a time older than one week.

@@ -381,8 +381,7 @@ File Retention = <time-period-specification>
    The default File retention period is 60 days.
 
 Job Retention = <time-period-specification>
-   :index:`\ <single: Job; Retention>`\  :index:`\ <single: Retention; Job>`\  The Job Retention record defines the length of time that Bareos will keep Job records in the Catalog database. When this time period expires, and if AutoPrune is set to yes Bareos will prune (remove) Job records that are older than the specified Job Retention period. Note, if a Job record is selected for pruning, all associated File and JobMedia records will also be pruned regardless of the File Retention
-   period set. As a consequence, you normally will set the File retention period to be less than the Job retention period.
+   :index:`\ <single: Job; Retention>`\  :index:`\ <single: Retention; Job>`\  The Job Retention record defines the length of time that Bareos will keep Job records in the Catalog database. When this time period expires, and if AutoPrune is set to yes Bareos will prune (remove) Job records that are older than the specified Job Retention period. Note, if a Job record is selected for pruning, all associated File and JobMedia records will also be pruned regardless of the File Retention period set. As a consequence, you normally will set the File retention period to be less than the Job retention period.
 
    As mentioned above, once the File records are removed from the database, you will no longer be able to restore individual files from the Job. However, as long as the Job record remains in the database, you will be able to restore all the files backed up for the Job. As a consequence, it is generally a good idea to retain the Job records much longer than the File records.
 
@@ -613,7 +612,7 @@ Repairing Your PostgreSQL Database
 :index:`\ <single: Database; Repairing Your PostgreSQL>`
 :index:`\ <single: Repairing Your PostgreSQL Database>`
 
-The same considerations apply as for :ref:`RepairingMySQL`. Consult the PostgreSQL documents for how to repair the database.
+Consult the PostgreSQL documents for how to repair the database.
 
 For Bareos specific problems, consider using :ref:`bareos-dbcheck` program.
 

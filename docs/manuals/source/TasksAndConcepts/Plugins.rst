@@ -1905,8 +1905,11 @@ If things don't work as expected, make sure that
 - the |fd| (FD) works in general, so that you can make simple file backups and restores
 - the Bareos FD Python plugins work in general, try one of
   the shipped simple sample plugins
-- check your Postgres data directory for a file named backup_label. If it exists, another backup-process is already running. This file contains an entry like *LABEL: SomeLabel*. If the backup was triggered by this plugin, the label will look like: *LABEL: Bareos.pgplugin.jobid.<jobid>*.
- You may want to stop it using the *SELECT pg_stop_backup()* statement.
+- check your Postgres data directory for a file named backup_label.
+  If it exists, another backup-process is already running.  This file contains
+  an entry like *LABEL: SomeLabel*. If the backup was triggered by this plugin,
+  the label will look like: *LABEL: Bareos.pgplugin.jobid.<jobid>*.
+  You may want to stop it using the *SELECT pg_stop_backup()* statement.
 - make sure your *dbuser* can connect to the database *dbname* and is allowed to issue the following statements:
 
 .. code-block:: sql
