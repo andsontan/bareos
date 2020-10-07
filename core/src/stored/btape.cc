@@ -205,8 +205,7 @@ int main(int margc, char* margv[])
   Bsnprintf(buf, sizeof(buf), "%llu", x64);
   i = bsscanf(buf, "%llu", &y64);
   if (i != 1 || x64 != y64) {
-    Pmsg3(-1,
-          _("64 bit printf/scanf problem. i=%d x64=%llu y64=%llu\n"), i,
+    Pmsg3(-1, _("64 bit printf/scanf problem. i=%d x64=%llu y64=%llu\n"), i,
           x64, y64);
     exit(1);
   }
@@ -433,7 +432,7 @@ static void FillBuffer(fill_mode_t mode, char* buf, uint32_t len)
     case FILL_RANDOM:
       fd = open("/dev/urandom", O_RDONLY);
       if (fd != -1) {
-        read(fd, buf, len);
+        ssize_t result = read(fd, buf, len);
         close(fd);
       } else {
         uint32_t* p = (uint32_t*)buf;
@@ -2315,15 +2314,16 @@ static void fillcmd()
   sprintf(buf, "%s/btape.state", working_directory);
   fd = open(buf, O_CREAT | O_TRUNC | O_WRONLY, 0640);
   if (fd >= 0) {
-    write(fd, &btape_state_level, sizeof(btape_state_level));
-    write(fd, &simple, sizeof(simple));
-    write(fd, &last_block_num1, sizeof(last_block_num1));
-    write(fd, &last_block_num2, sizeof(last_block_num2));
-    write(fd, &last_file1, sizeof(last_file1));
-    write(fd, &last_file2, sizeof(last_file2));
-    write(fd, last_block1->buf, last_block1->buf_len);
-    write(fd, last_block2->buf, last_block2->buf_len);
-    write(fd, first_block->buf, first_block->buf_len);
+    ssize_t result;
+    result = write(fd, &btape_state_level, sizeof(btape_state_level));
+    result = write(fd, &simple, sizeof(simple));
+    result = write(fd, &last_block_num1, sizeof(last_block_num1));
+    result = write(fd, &last_block_num2, sizeof(last_block_num2));
+    result = write(fd, &last_file1, sizeof(last_file1));
+    result = write(fd, &last_file2, sizeof(last_file2));
+    result = write(fd, last_block1->buf, last_block1->buf_len);
+    result = write(fd, last_block2->buf, last_block2->buf_len);
+    result = write(fd, first_block->buf, first_block->buf_len);
     close(fd);
     Pmsg2(0, _("Wrote state file last_block_num1=%d last_block_num2=%d\n"),
           last_block_num1, last_block_num2);
@@ -2382,15 +2382,16 @@ static void unfillcmd()
   fd = open(buf, O_RDONLY);
   if (fd >= 0) {
     uint32_t state_level;
-    read(fd, &state_level, sizeof(btape_state_level));
-    read(fd, &simple, sizeof(simple));
-    read(fd, &last_block_num1, sizeof(last_block_num1));
-    read(fd, &last_block_num2, sizeof(last_block_num2));
-    read(fd, &last_file1, sizeof(last_file1));
-    read(fd, &last_file2, sizeof(last_file2));
-    read(fd, last_block1->buf, last_block1->buf_len);
-    read(fd, last_block2->buf, last_block2->buf_len);
-    read(fd, first_block->buf, first_block->buf_len);
+    ssize_t result;
+    result = read(fd, &state_level, sizeof(btape_state_level));
+    result = read(fd, &simple, sizeof(simple));
+    result = read(fd, &last_block_num1, sizeof(last_block_num1));
+    result = read(fd, &last_block_num2, sizeof(last_block_num2));
+    result = read(fd, &last_file1, sizeof(last_file1));
+    result = read(fd, &last_file2, sizeof(last_file2));
+    result = read(fd, last_block1->buf, last_block1->buf_len);
+    result = read(fd, last_block2->buf, last_block2->buf_len);
+    result = read(fd, first_block->buf, first_block->buf_len);
     close(fd);
     if (state_level != btape_state_level) {
       Pmsg0(-1, _("\nThe state file level has changed. You must redo\n"

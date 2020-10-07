@@ -3,7 +3,7 @@
 
    Copyright (C) 2012-2012 Free Software Foundation Europe e.V.
    Copyright (C) 2011-2012 Planets Communications B.V.
-   Copyright (C) 2013-2016 Bareos GmbH & Co. KG
+   Copyright (C) 2013-2020 Bareos GmbH & Co. KG
 
    This program is Free Software; you can redistribute it and/or
    modify it under the terms of version three of the GNU Affero General Public
@@ -301,7 +301,7 @@ int main(int argc, char* const* argv)
         goto bail_out;
       }
     }
-    read(kfd, wrapdata, sizeof(wrapdata));
+    ssize_t result = read(kfd, wrapdata, sizeof(wrapdata));
     if (kfd > 0) { close(kfd); }
     StripTrailingJunk(wrapdata);
     Dmsg1(10, "Wrapped keydata = %s\n", wrapdata);
@@ -376,7 +376,7 @@ int main(int argc, char* const* argv)
     if (kfd > 1) {
       close(kfd);
     } else {
-      write(kfd, "\n", 1);
+      ssize_t result = write(kfd, "\n", 1);
     }
     free(passphrase);
     goto bail_out;
@@ -401,7 +401,7 @@ int main(int argc, char* const* argv)
         goto bail_out;
       }
     }
-    read(kfd, keydata, sizeof(keydata));
+    ssize_t result = read(kfd, keydata, sizeof(keydata));
     if (kfd > 0) { close(kfd); }
     StripTrailingJunk(keydata);
     Dmsg1(10, "Keydata = %s\n", keydata);
@@ -522,7 +522,7 @@ int main(int argc, char* const* argv)
         goto bail_out;
       }
     }
-    read(kfd, keydata, sizeof(keydata));
+    ssize_t result = read(kfd, keydata, sizeof(keydata));
     if (kfd > 0) { close(kfd); }
     StripTrailingJunk(keydata);
 
