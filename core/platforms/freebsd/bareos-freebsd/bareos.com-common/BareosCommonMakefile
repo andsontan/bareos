@@ -62,6 +62,7 @@ USES+=		libtool:keepla pkgconfig readline:port
 #USES+=cmake
 USES+=cmake:noninja
 USES+=shebangfix
+USES+=python
 
 USE_LDCONFIG=	yes
 
@@ -76,6 +77,7 @@ CPPFLAGS+=      -I${LOCALBASE}/include
 LIB_DEPENDS+=	liblzo2.so:archivers/lzo2 \
 		          libjansson.so:devel/jansson
 LIB_DEPENDS+= libpython2.7.so:lang/python27
+LIB_DEPENDS+= libpython3.6.so:lang/python36
 
 
 #GNU_CONFIGURE=	yes
